@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:06 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/11/21 18:35:42 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:32:33 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*read_file(int fd)
 	char*		str;
 	ssize_t		bytes;
 
-	bytes = BUFFER_SIZE;
+	bytes = -2;
 	if (BUFFER_SIZE <= 0 || fd == -1 || read(fd, 0, 0) == -1)
 		return (buff[0] = '\0', NULL);
 	str = NULL;
@@ -54,14 +54,14 @@ char	*read_file(int fd)
 			return (str);
 		ft_reset(buff, ft_index_line(buff) + 1);
 	}
-	if (ft_index_line(buff) != -1)
+	if (ft_index_line(buff) != -1 && bytes == -2)
 	{
 		str = ft_strjoin(str, buff, ft_index_line(buff) + 1);
 		ft_reset(buff, ft_index_line(buff) + 1);
 	}
 	return (str);
 }
-
+//je n ai pas la derniere ligne car il n y a pas de \n (modifier le if de read file)
 char	*get_next_line(int fd)
 {
 	char	*file;
