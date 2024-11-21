@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:06 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/11/19 17:42:49 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2024/11/20 19:26:58 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*read_file(int fd)
 {
-	char	buff[BUFFER_SIZE + 1];
-	char	*str;
-	ssize_t	bytes;
+	static char	buff[BUFFER_SIZE + 1];
+	char*		str = NULL;
+	ssize_t		bytes;
 
 	bytes = BUFFER_SIZE;
 	if (BUFFER_SIZE <= 0 || fd == -1 || read(fd, 0, 0) == -1)
@@ -28,18 +28,34 @@ char	*read_file(int fd)
 			return (NULL);
 		if (bytes == 0)
 			return (str);
-		buff[BUFFER_SIZE] = '\0';
+		buff[bytes] = '\0';
 		str = ft_strjoin(str, buff);
-		__builtin_printf("je suis la\n");
 	}
 	return (str);
 }
 
-char	*get_next_line(int fd)
+char	*ft_line(char *s)
 {
+	int		i;
 	char	*dest;
 
-	dest = read_file(fd);
+	dest = malloc(ft_index_line(s) + 1);
+	i = 0;
+	while (s && s[i] && s[i - 1] != '\n')
+	{
+		dest[i] = s[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return(dest);
+}
+char	*get_next_line(int fd)
+{
+	char	*file;
+	char	*dest;
+
+	file = read_file(fd);
+	dest = ft_line(file);
 	return (dest);
 }
 
@@ -53,7 +69,11 @@ int main(int ac, char **av)
 
     (void)ac;
     fd = open(av[1], O_RDONLY);
-    dest = get_next_line(fd);
-    printf("%s", dest);
+	for (int i = 0; i < 3; i++)
+	{
+    	dest = get_next_line(fd);
+    	printf("%s", dest);
+		free (dest);
+	}
     return (0);
 }

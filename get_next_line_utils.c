@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:40:42 by yassinefahf       #+#    #+#             */
-/*   Updated: 2024/11/19 17:36:45 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2024/11/20 19:03:27 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len2;
 	int		j;
 
-	if (!s1 || !s2)
-		return (NULL);
 	len1 = ft_strlen(s1);
-    __builtin_printf("%zu\n", len1);
 	len2 = ft_strlen(s2);
 	i = 0;
 	dest = malloc((len1 + len2 + 1) * sizeof(char));
@@ -35,20 +32,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	j = 0;
-    // __builtin_printf("%c\n", dest[0]);
 	while (s2 && s2[j])
 		dest[i++] = s2[j++];
 	dest[i] = '\0';
 	return (dest);
 }
-char	*ft_strchr(const char *s, int c, int len)
+char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 
 	i = 0;
 	if (!s)
 		return (NULL);
-	while (s[i] && i < (size_t)len)
+	while (s[i])
 	{
 		if (s[i] == (unsigned char)c)
 			return ((char *)(s + i));
@@ -57,6 +53,14 @@ char	*ft_strchr(const char *s, int c, int len)
 	if ((unsigned char)c == '\0')
 		return ((char *)(s + i));
 	return (NULL);
+}
+int	ft_index_line(char *s)
+{
+	int	i = 0;
+
+	while (s && s[i] && s[i] != '\n')
+		i++;
+	return (i);
 }
 size_t  ft_strlen(const char *s)
 {
