@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:06 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/11/21 16:22:24 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2024/11/21 18:35:42 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+char    *ft_strdup(const char *s)
+{
+        int             i;
+        char    *dest;
+        int             len;
+
+        if (!s)
+                return (NULL);
+        len = ft_strlen(s);
+        dest = malloc((len + 1) * sizeof(char));
+        if (!dest)
+                return (NULL);
+        i = 0;
+        while (i < len)
+        {
+                dest[i] = s[i];
+                i++;
+        }
+        dest[i] = '\0';
+        return (dest);
+}
 
 char	*read_file(int fd)
 {
@@ -27,12 +48,16 @@ char	*read_file(int fd)
 		bytes = read(fd, buff, BUFFER_SIZE);
 		if (bytes == -1)
 			return (NULL);
+		buff[bytes] = '\0';
+		str = ft_strjoin(str, buff, ft_index_line(buff) + 1);
 		if (bytes == 0)
 			return (str);
-		buff[bytes] = '\0';
-		str = ft_strjoin(str, buff, ft_index_line(buff));
-		ft_reset(buff);
-		printf("str = |%s\n|",	 str);
+		ft_reset(buff, ft_index_line(buff) + 1);
+	}
+	if (ft_index_line(buff) != -1)
+	{
+		str = ft_strjoin(str, buff, ft_index_line(buff) + 1);
+		ft_reset(buff, ft_index_line(buff) + 1);
 	}
 	return (str);
 }
@@ -57,7 +82,7 @@ int main(int ac, char **av)
 	(void)dest;
     fd = open(av[1], O_RDONLY);
     dest = get_next_line(fd);
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
     	printf("-%s", dest);
 		// free (dest);

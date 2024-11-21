@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:40:42 by yassinefahf       #+#    #+#             */
-/*   Updated: 2024/11/21 16:18:24 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2024/11/21 18:29:26 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,18 @@ size_t  ft_strlen(const char *s)
     return (i);
 }
 
-void	ft_reset(char *s)
+void	ft_reset(char *s, int stop)
 {
 	int		i;
-	char	*str;
+	char	*tmp;
 
 	i = 0;
-	str = ft_strchr(s, '\n');
-	if (str)
+	tmp = s;
+	while (tmp[stop])
 	{
-		while (str[++i])
-			s[i] = str[i];
+		s[i] = tmp[stop];
+		i++;
+		stop++;
 	}
 	while (s && s[i])
 		s[i++] = '\0';
