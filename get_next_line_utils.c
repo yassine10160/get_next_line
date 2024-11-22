@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:40:42 by yassinefahf       #+#    #+#             */
-/*   Updated: 2024/11/21 18:29:26 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/22 13:44:29 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int index)
 	int		j;
 
 	len1 = ft_strlen(s1);
-	if (index == -1)
+	if (index == 0)
 		len2 = ft_strlen(s2);
 	else
 		len2 =  (ft_strlen(s2)) - (ft_strlen(s2) - index);
@@ -84,6 +84,8 @@ void	ft_reset(char *s, int stop)
 
 	i = 0;
 	tmp = s;
+	if (stop == 0)
+		s[0] = '\0';
 	while (tmp[stop])
 	{
 		s[i] = tmp[stop];

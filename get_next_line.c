@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:06 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/11/21 19:32:33 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:14:33 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ char	*read_file(int fd)
 	while (ft_index_line(buff) == -1 && bytes != 0)
 	{
 		bytes = read(fd, buff, BUFFER_SIZE);
-		if (bytes == -1)
+		if (bytes == -1 || buff[0] == '\0')
 			return (NULL);
-		buff[bytes] = '\0';
+		if (bytes != 0)
+			buff[bytes] = '\0';
 		str = ft_strjoin(str, buff, ft_index_line(buff) + 1);
-		if (bytes == 0)
-			return (str);
 		ft_reset(buff, ft_index_line(buff) + 1);
 	}
 	if (ft_index_line(buff) != -1 && bytes == -2)
@@ -59,6 +58,7 @@ char	*read_file(int fd)
 		str = ft_strjoin(str, buff, ft_index_line(buff) + 1);
 		ft_reset(buff, ft_index_line(buff) + 1);
 	}
+	
 	return (str);
 }
 //je n ai pas la derniere ligne car il n y a pas de \n (modifier le if de read file)
@@ -78,15 +78,13 @@ int main(int ac, char **av)
     char    *dest;
     int     fd;
 
-    (void)ac;
-	(void)dest;
     fd = open(av[1], O_RDONLY);
     dest = get_next_line(fd);
-	for (int i = 0; i < 4; i++)
+	while (dest)
 	{
     	printf("-%s", dest);
-		// free (dest);
+		free (dest);
     	dest = get_next_line(fd);
 	}
-    return (0);
+    return (ac * 0);
 }
