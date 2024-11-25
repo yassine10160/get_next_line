@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:40:42 by yassinefahf       #+#    #+#             */
-/*   Updated: 2024/11/22 13:44:29 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:47:40 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int index)
 	dest[i] = '\0';
 	return (dest);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
@@ -63,7 +64,7 @@ int	ft_index_line(char *s)
 
 	while (s && s[i] && s[i] != '\n')
 		i++;
-	if (s[i] == '\0')
+	if (s && s[i] == '\0')
 		return (-1);
 	return (i);
 }
@@ -85,7 +86,10 @@ void	ft_reset(char *s, int stop)
 	i = 0;
 	tmp = s;
 	if (stop == 0)
-		s[0] = '\0';
+	{
+		while (s && s[i])
+			s[i++] = '\0';
+	}
 	while (tmp[stop])
 	{
 		s[i] = tmp[stop];
