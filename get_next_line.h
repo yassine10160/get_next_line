@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:48 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/11/22 14:12:03 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:02:11 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ char	*ft_strchr(const char *s, int c);
 size_t  ft_strlen(char const *s);
 int     ft_index_line(char *s);
 void    ft_reset(char *s, int end);
-int	faux_strchr(const char *s, int c);
 
 #endif

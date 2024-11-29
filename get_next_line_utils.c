@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 14:40:42 by yassinefahf       #+#    #+#             */
-/*   Updated: 2024/11/25 15:47:40 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:45:47 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ char	*ft_strchr(const char *s, int c)
 }
 int	ft_index_line(char *s)
 {
-	int	i = 0;
-
+	int	i;
+	
+	i = 0;
 	while (s && s[i] && s[i] != '\n')
 		i++;
-	if (s && s[i] == '\0')
+	if (!s || (s && s[i] == '\0'))
 		return (-1);
 	return (i);
 }
