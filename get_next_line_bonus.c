@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 17:55:06 by yafahfou          #+#    #+#             */
-/*   Updated: 2024/12/10 14:34:33 by yafahfou         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:51:40 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin_check(char *s1, char *s2)
 {
@@ -53,25 +53,26 @@ int	read_file(char *buff, char **str, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1];
+	static char	buff[MAX_FD][BUFFER_SIZE + 1];
 	char		*str;
 	ssize_t		bytes;
 
 	bytes = -2;
 	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (buff[0] = '\0', NULL);
+		return (buff[fd][0] = '\0', NULL);
 	str = NULL;
-	bytes = read_file(buff, &str, fd);
+	bytes = read_file(buff[fd], &str, fd);
 	if (bytes == -1)
 	{
-		ft_reset(buff, ft_index_line(buff) + 1);
+		ft_reset(buff[fd], ft_index_line(buff[fd]) + 1);
 		return (NULL);
 	}
 	else if (bytes == 0)
 		return (str);
-	if (ft_index_line(buff) != -1 && bytes == -2 && ft_index_line(str) == -1)
+	if (ft_index_line(buff[fd]) != -1 && bytes == -2
+		&& ft_index_line(str) == -1)
 	{
-		str = ft_strjoin_check(str, buff);
+		str = ft_strjoin_check(str, buff[fd]);
 		if (!str)
 			return (NULL);
 	}
